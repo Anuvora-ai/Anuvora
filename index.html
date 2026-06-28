@@ -1,0 +1,523 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samurai X</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+    color:white;
+}
+
+.bg{
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(120deg,rgba(0,0,0,.15),rgba(0,0,0,.8)),
+    url("samuraii.jpeg");
+    background-size:cover;
+    background-position:center;
+    z-index:-5;
+    transition:.25s;
+}
+
+.glow{
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:orange;
+    filter:blur(180px);
+    opacity:.25;
+    right:-120px;
+    bottom:-120px;
+    z-index:-4;
+}
+
+.rain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.drop{
+    position:absolute;
+    top:-120px;
+    width:2px;
+    height:90px;
+    background:linear-gradient(transparent,#ffffffaa);
+    animation:rain linear infinite;
+}
+
+@keyframes rain{
+    to{transform:translateY(120vh);}
+}
+
+.particle{
+    position:absolute;
+    width:5px;
+    height:5px;
+    background:orange;
+    border-radius:50%;
+    box-shadow:0 0 18px orange;
+    animation:float 4s infinite ease-in-out;
+}
+
+@keyframes float{
+    50%{transform:translateY(-35px);opacity:.4;}
+}
+
+.navbar{
+    width:85%;
+    margin:28px auto;
+    padding:18px 38px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,.35);
+    border-radius:40px;
+    backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 0 35px rgba(255,165,0,.18);
+}
+
+.logo{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:orange;
+    text-shadow:0 0 18px orange;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:32px;
+    font-weight:bold;
+    position:relative;
+}
+
+.navbar a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:0;
+    height:3px;
+    background:orange;
+    transition:.3s;
+}
+
+.navbar a:hover::after{
+    width:100%;
+}
+
+.hero{
+    height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero-card{
+    padding:35px;
+    border-radius:30px;
+    background:rgba(0,0,0,.2);
+    backdrop-filter:blur(6px);
+}
+
+.badge{
+    display:inline-block;
+    padding:10px 25px;
+    background:rgba(255,165,0,.15);
+    border:1px solid orange;
+    border-radius:30px;
+    color:orange;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:82px;
+    letter-spacing:13px;
+    text-shadow:0 0 30px white;
+}
+
+.hero p{
+    font-size:24px;
+    margin:20px 0 35px;
+    font-weight:bold;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+}
+
+.explore-btn,
+.login-btn{
+    padding:17px 55px;
+    border-radius:40px;
+    background:linear-gradient(135deg,orange,#ff4d00);
+    color:white;
+    font-size:19px;
+    font-weight:bold;
+    box-shadow:0 0 30px orange;
+    transition:.3s;
+}
+
+.explore-btn:hover,
+.login-btn:hover{
+    transform:scale(1.08);
+}
+
+.login-page{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:390px;
+    padding:38px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:28px;
+    backdrop-filter:blur(18px);
+    text-align:center;
+    box-shadow:0 0 50px rgba(0,0,0,.6);
+}
+
+.login-box h2{
+    font-size:38px;
+    margin-bottom:25px;
+}
+
+.login-box input{
+    width:100%;
+    padding:15px 20px;
+    margin:12px 0;
+    border:none;
+    outline:none;
+    border-radius:30px;
+    background:rgba(255,255,255,.72);
+    font-weight:bold;
+}
+
+.pass-box{
+    position:relative;
+}
+
+.pass-box span{
+    position:absolute;
+    right:18px;
+    top:25px;
+    cursor:pointer;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    margin:12px 0 25px;
+}
+
+.row a,
+.register a{
+    color:orange;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.register{
+    margin-top:18px;
+    font-size:14px;
+}
+
+.back-btn{
+    background:transparent;
+    color:white;
+    font-size:16px;
+    margin-bottom:15px;
+}
+
+.sound-btn{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:orange;
+    color:white;
+    font-size:22px;
+    box-shadow:0 0 25px orange;
+    z-index:99;
+}
+
+.register-box{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.6);
+    z-index:50;
+}
+
+#loginMsg{
+    margin-top:15px;
+    color:orange;
+    font-weight:bold;
+}
+
+.hide{
+    display:none;
+}
+
+.show{
+    display:flex;
+    animation:fade .8s ease;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:scale(.9);}
+    to{opacity:1;transform:scale(1);}
+}
+
+.sword{
+    width:180px;
+    height:4px;
+    background:linear-gradient(90deg,transparent,white,orange);
+    margin:20px auto;
+    box-shadow:0 0 18px orange;
+    animation:sword 2s infinite alternate;
+}
+
+@keyframes sword{
+    from{width:90px;}
+    to{width:210px;}
+}
+
+@media(max-width:768px){
+    .navbar{
+        width:92%;
+        padding:15px 20px;
+    }
+
+    .navbar nav{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:48px;
+        letter-spacing:7px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .login-box{
+        width:90%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+<div class="glow"></div>
+<div class="rain" id="rain"></div>
+
+<section id="landing">
+
+<header class="navbar">
+    <div class="logo">SAMU<span>RAI</span> X</div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Skills</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <div class="hero-card">
+        <div class="badge">PRIVATE WARRIOR MODE</div>
+        <h1>SAMURAI</h1>
+        <div class="sword"></div>
+        <p id="typing"></p>
+        <button class="explore-btn" onclick="openLogin()">Explore</button>
+    </div>
+</div>
+
+</section>
+
+<section class="login-page" id="loginPage">
+    <div class="login-box">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+
+        <h2>Login</h2>
+
+        <input type="text" placeholder="Username" id="username">
+
+        <div class="pass-box">
+            <input type="password" placeholder="Password" id="password">
+            <span onclick="togglePass()">👁</span>
+        </div>
+
+        <div class="row">
+            <label><input type="checkbox"> Remember</label>
+            <a href="#">Forgot?</a>
+        </div>
+
+        <button class="login-btn" onclick="loginNow()">Login</button>
+
+        <p class="register">
+            Don't have an account? <a onclick="openRegister()">Register</a>
+        </p>
+
+        <p id="loginMsg"></p>
+    </div>
+</section>
+
+<div class="register-box" id="registerBox">
+    <div class="login-box">
+        <button class="back-btn" onclick="closeRegister()">× Close</button>
+        <h2>Register</h2>
+
+        <input type="text" placeholder="Create Username">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Create Password">
+
+        <button class="login-btn" onclick="closeRegister()">Create Account</button>
+    </div>
+</div>
+
+<button class="sound-btn" onclick="toggleSound()">🔊</button>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const rain = document.getElementById("rain");
+
+for(let i = 0; i < 100; i++){
+    let drop = document.createElement("div");
+    drop.className = "drop";
+    drop.style.left = Math.random() * 100 + "vw";
+    drop.style.animationDuration = .4 + Math.random() * .9 + "s";
+    drop.style.animationDelay = Math.random() * 3 + "s";
+    rain.appendChild(drop);
+}
+
+for(let i = 0; i < 45; i++){
+    let p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.top = Math.random() * 100 + "vh";
+    p.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(p);
+}
+
+document.addEventListener("mousemove", (e)=>{
+    let x = (e.clientX / window.innerWidth - .5) * 25;
+    let y = (e.clientY / window.innerHeight - .5) * 25;
+
+    document.getElementById("bg").style.transform =
+    `scale(1.08) translate(${x}px, ${y}px)`;
+});
+
+function openLogin(){
+    document.getElementById("landing").classList.add("hide");
+    document.getElementById("loginPage").classList.add("show");
+}
+
+function goBack(){
+    document.getElementById("landing").classList.remove("hide");
+    document.getElementById("loginPage").classList.remove("show");
+}
+
+function togglePass(){
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+
+function loginNow(){
+    const user = document.getElementById("username").value;
+    const msg = document.getElementById("loginMsg");
+
+    if(user === ""){
+        msg.innerText = "Enter username first bro ⚠️";
+        return;
+    }
+
+    msg.innerText = "Checking warrior access...";
+
+    setTimeout(()=>{
+        msg.innerText = "Welcome " + user + " ⚔️";
+    },1500);
+}
+
+function openRegister(){
+    document.getElementById("registerBox").classList.add("show");
+}
+
+function closeRegister(){
+    document.getElementById("registerBox").classList.remove("show");
+}
+
+let music = document.getElementById("bgMusic");
+let playing = false;
+
+function toggleSound(){
+    if(!playing){
+        music.play();
+        playing = true;
+        document.querySelector(".sound-btn").innerText = "🔇";
+    }else{
+        music.pause();
+        playing = false;
+        document.querySelector(".sound-btn").innerText = "🔊";
+    }
+}
+
+const text = "Warrior • Coder • Creator • Future Legend";
+let i = 0;
+
+function typeText(){
+    if(i < text.length){
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeText, 90);
+    }
+}
+
+typeText();
+</script>
+
+</body>
+</html>
